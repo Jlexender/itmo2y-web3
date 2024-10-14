@@ -5,11 +5,10 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 import ru.lexender.ifmo.web3.core.ContourService;
+import ru.lexender.ifmo.web3.database.DatabaseConnection;
 
-import javax.faces.annotation.ManagedProperty;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import java.util.List;
 
 @ManagedBean
 @SessionScoped
@@ -23,6 +22,7 @@ public class FormBean {
     Boolean result;
 
     ContourService contourService = new ContourService();
+    DatabaseConnection databaseConnection = new DatabaseConnection();
 
 
     public void submit() {
@@ -30,5 +30,7 @@ public class FormBean {
 
         result = contourService.check(x, y, r);
         time = System.nanoTime() - start;
+
+        databaseConnection.saveShot(x, y, r, time, result);
     }
 }

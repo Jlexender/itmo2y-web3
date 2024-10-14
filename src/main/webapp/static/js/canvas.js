@@ -122,7 +122,9 @@ function insertPoint(x, y, r, good) {
 $(document).ready(() => {
     canvas.width = 500;
     canvas.height = 350;
-    redrawCanvas(getR());
+    img.onload = () => {
+        redrawCanvas(getR());
+    }
 });
 
 function redrawCanvas(newR) {
@@ -140,6 +142,8 @@ function redrawCanvas(newR) {
 }
 
 function getR() {
+    v = document.getElementById('main-form:r').value;
+    console.log('v: ' + v);
     return document.getElementById('main-form:r').value;
 }
 

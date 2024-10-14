@@ -23,17 +23,10 @@
         <div class="flex-container">
             <!-- Form to send data via AJAX -->
             <h:form id="main-form">
+                <h1 style="color: rgba(255,0,0,0.88); text-shadow: 2px 2px 4px #000000;">Расчёт арты 🚀</h1>
                 <h:panelGrid columns="2">
                     <h:outputLabel for="x" value="X:" />
-                    <h:selectOneRadio id="x" value="#{formBean.x}" required="true">
-                        <f:selectItem itemValue="-3" itemLabel="-3" />
-                        <f:selectItem itemValue="-2" itemLabel="-2" />
-                        <f:selectItem itemValue="-1" itemLabel="-1" />
-                        <f:selectItem itemValue="0" itemLabel="0" />
-                        <f:selectItem itemValue="1" itemLabel="1" />
-                        <f:selectItem itemValue="2" itemLabel="2" />
-                        <f:selectItem itemValue="3" itemLabel="3" />
-                    </h:selectOneRadio>
+                    <h:inputText id="x" value="#{formBean.x}" required="true" type="number" />
 
                     <h:outputLabel for="y" value="Y:" />
                     <h:inputText id="y" value="#{formBean.y}" required="true" type="number" />
@@ -54,7 +47,7 @@
                 <h:inputHidden id="result" value="#{formBean.result}" />
                 <h:inputHidden id="time" value="#{formBean.time}" />
 
-                <h:commandButton id="submit-button" value="Выстрел" actionListener="#{formBean.submit}">
+                <h:commandButton id="submit-button" value="Выстрел" actionListener="#{formBean.submit}" style="background-color: rgba(229, 57, 53, .7); color: #fff; border: none; border-radius: 6px; font-size: 28px; padding: 15px 30px; font-weight: bold; text-transform: uppercase; transition: background-color 0.3s, transform 0.3s;">
                     <f:ajax execute="@form" render="main-form:result main-form:time" onevent="handleFormSubmit"/>
                 </h:commandButton>
             </h:form>

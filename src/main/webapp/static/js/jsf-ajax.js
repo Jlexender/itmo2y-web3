@@ -8,6 +8,7 @@ function handleFormSubmit(event) {
         const yValue = document.getElementById('main-form:y').value;
         const rValue = document.getElementById('main-form:r').value;
 
+        console.log(xValue, yValue, rValue);
 
         // Получаем значения result и time, обновленные сервером
         const resultValue = document.getElementById('main-form:result').value === 'true';

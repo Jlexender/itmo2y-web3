@@ -93,16 +93,14 @@ nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px;
+    padding: 5px;
     box-sizing: border-box;
 }
 
 table {
     width: 100%;
-    border-collapse: collapse;
-    margin: 20px 0;
     font-size: 18px;
-    text-align: left;
+    text-align: center;
 }
 
 #main-canvas {
@@ -154,17 +152,16 @@ table {
 
 #main-canvas {
     position: absolute;
-    top: 55%;
-    left: 7%;
+    bottom: 0;
+    right: 0;
 }
 
 table {
     width: 40%;
-    margin: 2rem 2rem;
 }
 
 table th, table td {
-   padding: 12px 20px;
+   padding: 3px 3px;
    border: 1px solid #ddd;
 }
 
@@ -205,19 +202,38 @@ input[type="radio"]:checked + label {
     font-weight: bold;
 }
 
-#submit-button {
-    background-color: #4CAF50; /* Green background */
-    color: white; /* White text */
-    font-size: 16px; /* Font size */
-    padding: 10px 20px; /* Padding */
-    border: none; /* No border */
-    border-radius: 5px; /* Rounded corners */
-    cursor: pointer; /* Pointer cursor on hover */
-    transition: background-color 0.3s; /* Smooth transition */
+/* Style the form container */
+#main-form {
+    background-image: url("../images/mask.jpeg");
+    background-size: cover;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    max-width: 400px;
+    margin: 0 auto;
 }
 
-#submit-button:hover {
-    background-color: #45a049; /* Darker green on hover */
+/* Set a maximum height for the form */
+#main-form {
+    max-height: 390px; /* Adjust as needed */
+    overflow-y: auto; /* Add vertical scrollbars if content overflows */
 }
+
+/* Ensure the table does not exceed the form's height */
+#results-table {
+    width: 100%; /* Make table width 100% of its container */
+    table-layout: fixed; /* Fix table layout to prevent stretching */
+    word-wrap: break-word; /* Break long words to fit within cells */
+}
+
+input {
+    width: 100%; /* Make input fields take up the full width */
+    padding: 8px; /* Add padding to input fields */
+    margin: 8px 0; /* Add margin to input fields */
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */()
+}
+
+
+
 
 
