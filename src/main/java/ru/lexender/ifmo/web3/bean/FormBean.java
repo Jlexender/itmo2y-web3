@@ -11,8 +11,6 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 
-@ManagedBean
-@SessionScoped
 @Getter @Setter
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class FormBean {
