@@ -3,4 +3,31 @@
               xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
                                   http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd"
               version="2.2">
+
+    <managed-bean>
+        <managed-bean-name>formBean</managed-bean-name>
+        <managed-bean-class>ru.lexender.ifmo.web3.bean.FormBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+        <managed-property>
+            <property-name>contourService</property-name>
+            <value>#{contourService}</value>
+        </managed-property>
+        <managed-property>
+            <property-name>databaseConnection</property-name>
+            <value>#{databaseConnection}</value>
+        </managed-property>
+    </managed-bean>
+
+    <managed-bean>
+        <managed-bean-name>contourService</managed-bean-name>
+        <managed-bean-class>ru.lexender.ifmo.web3.core.ContourService</managed-bean-class>
+        <managed-bean-scope>application</managed-bean-scope>
+    </managed-bean>
+
+    <managed-bean>
+        <managed-bean-name>databaseConnection</managed-bean-name>
+        <managed-bean-class>ru.lexender.ifmo.web3.database.DatabaseConnection</managed-bean-class>
+        <managed-bean-scope>application</managed-bean-scope>
+    </managed-bean>
+
 </faces-config>

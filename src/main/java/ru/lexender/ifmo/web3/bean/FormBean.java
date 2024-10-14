@@ -8,6 +8,7 @@ import ru.lexender.ifmo.web3.core.ContourService;
 import ru.lexender.ifmo.web3.database.DatabaseConnection;
 
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 
 @ManagedBean
@@ -21,9 +22,11 @@ public class FormBean {
     Long time;
     Boolean result;
 
-    ContourService contourService = new ContourService();
-    DatabaseConnection databaseConnection = new DatabaseConnection();
+    @ManagedProperty(value = "#{contourService}")
+    ContourService contourService;
 
+    @ManagedProperty(value = "#{databaseConnection}")
+    DatabaseConnection databaseConnection;
 
     public void submit() {
         long start = System.nanoTime();
