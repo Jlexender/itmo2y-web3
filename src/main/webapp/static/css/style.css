@@ -215,7 +215,7 @@ input[type="radio"]:checked + label {
 
 /* Set a maximum height for the form */
 #main-form {
-    max-height: 390px; /* Adjust as needed */
+    max-height: 370px; /* Adjust as needed */
     overflow-y: auto; /* Add vertical scrollbars if content overflows */
 }
 

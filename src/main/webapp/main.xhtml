@@ -24,13 +24,12 @@
             <!-- Form to send data via AJAX -->
             <h:form id="main-form">
                 <h2 style="color: rgba(255,0,0,0.88); text-shadow: 2px 2px 4px #000000; text-transform: uppercase">Расчёт арты 🚀</h2>
-                <h:panelGrid columns="2">
+                <h:panelGrid columns="2" columnClasses="col1,col2-wider">
                     <h:outputLabel for="x" value="X:" />
-                    <h:inputText id="x" value="#{formBean.x}" required="true" type="number" />
+                    <h:inputText id="x" value="#{formBean.x}" required="true" onkeypress="if (!/^-?\d*\.?\d*$/.test(String.fromCharCode(event.keyCode))) return false;" oninput="restrictToNumbers(this)" converterMessage="Digits" />
 
                     <h:outputLabel for="y" value="Y:" />
-                    <h:inputText id="y" value="#{formBean.y}" required="true" type="number" />
-
+                    <h:inputText id="y" value="#{formBean.y}" required="true" onkeypress="if (!/^-?\d*\.?\d*$/.test(String.fromCharCode(event.keyCode))) return false;" oninput="restrictToNumbers(this)" converterMessage="Digits" />
                     <h:outputLabel for="r" value="R:" />
                     <h:selectOneMenu id="r" value="#{formBean.r}" required="true">
                         <f:selectItem itemValue="1" itemLabel="1" />
@@ -77,8 +76,19 @@
                 </template>
                 </tbody>
             </table>
-
         </div>
+        <script>
+            function restrictToNumbers(input) {
+                const value = input.value;
+                // Регулярное выражение для чисел, включая отрицательные и дробные
+                const regex = /^-?\d*\.?\d*$/;
+
+                if (!regex.test(value)) {
+                    // Если введено что-то не числовое, удаляем это из строки
+                    input.value = value.slice(0, -1);
+                }
+            }
+        </script>
 
         <video autoplay="autoplay" muted="muted" loop="loop" id="bg-video">
             <source src="https://staticfiles.warthunder.com/upload/image/media/bg/reel-2023.mp4" type="video/mp4"/>
