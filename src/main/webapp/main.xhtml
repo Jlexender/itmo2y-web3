@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+    <title>Основная страница</title>
+    <link rel="stylesheet" href="static/css/normalize.css"/>
+    <link rel="stylesheet" href="static/css/style.css"/>
+</h:head>
+<h:body>
+    <div id="main-content">
+        <header>
+            <nav>
+                <button id="hide-content" class="button--red-bg">Назад</button>
+                <img src="static/images/logo.svg" id="logo-img" alt="War Thunder Logo"/>
+                <button id="mute-button" class="button--red-bg">Звук</button>
+            </nav>
+        </header>
+
+        <canvas id="main-canvas">
+            Your browser does not support the canvas element.
+        </canvas>
+
+        <div class="flex-container">
+            <!-- Form to send data via AJAX -->
+            <h:form id="main-form">
+                <h:panelGrid columns="2">
+                    <h:outputLabel for="x" value="X:" />
+                    <h:selectOneRadio id="x" value="#{formBean.x}" required="true">
+                        <f:selectItem itemValue="-3" itemLabel="-3" />
+                        <f:selectItem itemValue="-2" itemLabel="-2" />
+                        <f:selectItem itemValue="-1" itemLabel="-1" />
+                        <f:selectItem itemValue="0" itemLabel="0" />
+                        <f:selectItem itemValue="1" itemLabel="1" />
+                        <f:selectItem itemValue="2" itemLabel="2" />
+                        <f:selectItem itemValue="3" itemLabel="3" />
+                    </h:selectOneRadio>
+
+                    <h:outputLabel for="y" value="Y:" />
+                    <h:inputText id="y" value="#{formBean.y}" required="true" type="number" />
+
+                    <h:outputLabel for="r" value="R:" />
+                    <h:selectOneMenu id="r" value="#{formBean.r}" required="true">
+                        <f:selectItem itemValue="1" itemLabel="1" />
+                        <f:selectItem itemValue="1.5" itemLabel="1.5" />
+                        <f:selectItem itemValue="2" itemLabel="2" />
+                        <f:selectItem itemValue="2.5" itemLabel="2.5" />
+                        <f:selectItem itemValue="3" itemLabel="3" />
+                        <f:selectItem itemValue="3.5" itemLabel="3.5" />
+                        <f:selectItem itemValue="4" itemLabel="4" />
+                        <f:selectItem itemValue="4.5" itemLabel="4.5" />
+                    </h:selectOneMenu>
+                </h:panelGrid>
+
+                <h:inputHidden id="result" value="#{formBean.result}" />
+                <h:inputHidden id="time" value="#{formBean.time}" />
+
+                <h:commandButton id="submit-button" value="Выстрел" actionListener="#{formBean.submit}">
+                    <f:ajax execute="@form" render="main-form:result main-form:time" onevent="handleFormSubmit"/>
+                </h:commandButton>
+            </h:form>
+
+
+            <table id="results-table">
+                <thead>
+                <tr>
+                    <th>X</th>
+                    <th>Y</th>
+                    <th>R</th>
+                    <th>Время отправки</th>
+                    <th>Результат</th>
+                    <th>Время работы сервера</th>
+                </tr>
+                </thead>
+                <tbody>
+                <template>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </template>
+                </tbody>
+            </table>
+
+        </div>
+
+        <video autoplay="autoplay" muted="muted" loop="loop" id="bg-video">
+            <source src="https://staticfiles.warthunder.com/upload/image/media/bg/reel-2023.mp4" type="video/mp4"/>
+            Your browser does not support the video tag.
+        </video>
+        <script src="static/js/jsf-ajax.js"/>
+    </div>
+</h:body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html">
+<h:head>
+   <title>Веб-программирование 3</title>
+   <link rel="stylesheet" href="static/css/normalize.css"/>
+   <link rel="stylesheet" href="static/css/style.css"/>
+   <link rel="icon" type="image/png" href="static/images/favicon.png"/>
+   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</h:head>
+<h:body>
+   <div id="index-content">
+      <div class="ussr-cols">
+         <div class="ussr-col">
+            <div class="header">
+               <h2>Веб-программирование 3</h2>
+               <h3>ФИО: Калиев Александр Дмитриевич</h3>
+               <h3>Группа: P3211</h3>
+               <h3>Вариант: 21071</h3>
+            </div>
+         </div>
+         <div class="ussr-col">
+            <div class="clock">
+               <iframe src="https://free.timeanddate.com/clock/i9l8kp17/n101/szw210/szh210/cf100/hnce1ead6" frameborder="0" width="210" height="210"></iframe>
+            </div>
+         </div>
+      </div>
+      <div class="main-link">
+         <button id="load-content" class="ussr-button">В бой!</button>
+      </div>
+      <img id="bg-image" src="static/images/flag.svg" alt="background-image"/>
+   </div>
+   <div id="main-content"></div>
+   <audio id="bg-audio" loop="loop" muted="muted">
+      <source src="static/mp3/bg-audio.mp3" type="audio/mp3"/>
+      Your browser does not support the audio element.
+   </audio>
+</h:body>
+
+
+<script src="static/js/content.js"/>
+<script src="static/js/index.js"/>
+
+</html>
