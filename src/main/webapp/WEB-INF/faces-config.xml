@@ -16,6 +16,16 @@
             <property-name>databaseConnection</property-name>
             <value>#{databaseConnection}</value>
         </managed-property>
+        <managed-property>
+            <property-name>tableBean</property-name>
+            <value>#{tableBean}</value>
+        </managed-property>
+    </managed-bean>
+
+    <managed-bean>
+        <managed-bean-name>tableBean</managed-bean-name>
+        <managed-bean-class>ru.lexender.ifmo.web3.bean.TableBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
     </managed-bean>
 
     <managed-bean>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+    <title>Test List</title>
+</h:head>
+<h:body>
+    <h1>Список тестов</h1>
+
+    <!-- Подключение таблицы с использованием данных из бина -->
+    <h:dataTable value="#{testBean.tests}" var="test" border="1">
+        <!-- Заголовок столбца -->
+        <h:column>
+            <f:facet name="header">ID</f:facet>
+            #{test.id}
+        </h:column>
+
+        <h:column>
+            <f:facet name="header">Data</f:facet>
+            #{test.data}
+        </h:column>
+    </h:dataTable>
+</h:body>
+</html>

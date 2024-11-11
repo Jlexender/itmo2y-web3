@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core">
+      xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
 <h:head>
     <title>Основная страница</title>
     <link rel="stylesheet" href="static/css/normalize.css"/>
@@ -46,36 +47,42 @@
                 <h:inputHidden id="result" value="#{formBean.result}" />
                 <h:inputHidden id="time" value="#{formBean.time}" />
 
-                <h:commandButton id="submit-button" value="Выстрел" actionListener="#{formBean.submit}" style="background-color: rgba(229, 57, 53, .7); color: #fff; border: none; border-radius: 6px; font-size: 28px; padding: 15px 30px; font-weight: bold; text-transform: uppercase; transition: background-color 0.3s, transform 0.3s;">
-                    <f:ajax execute="@form" render="main-form:result main-form:time" onevent="handleFormSubmit"/>
+                <h:commandButton id="submit-button" value="Выстрел" actionListener="#{formBean.submit}"
+                                 style="background-color: rgba(229, 57, 53, .7);
+                 color: #fff; border: none;
+                 border-radius: 6px;
+                 font-size: 28px;
+                 padding: 15px 30px;
+                 font-weight: bold;
+                 text-transform: uppercase;
+                 transition: background-color 0.3s, transform 0.3s;">
+                    <f:ajax execute="@form" render="main-form:result main-form:time results-table" onevent="handleFormSubmit" />
                 </h:commandButton>
             </h:form>
-
-
             <table id="results-table">
                 <thead>
                 <tr>
                     <th>X</th>
                     <th>Y</th>
-                    <th>R</th>
-                    <th>Время отправки</th>
+                    <th>Z</th>
                     <th>Результат</th>
                     <th>Время работы сервера</th>
                 </tr>
                 </thead>
                 <tbody>
-                <template>
+                <ui:repeat value="#{tableBean.data}" var="row">
                     <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <td>#{row.x}</td>
+                        <td>#{row.y}</td>
+                        <td>#{row.r}</td>
+                        <td>#{row.result ? "Пробитие" : "Не пробил"}</td>
+                        <td>#{row.time} ns</td>
                     </tr>
-                </template>
+                </ui:repeat>
                 </tbody>
             </table>
+
+
         </div>
 
         <video autoplay="autoplay" muted="muted" loop="loop" id="bg-video">

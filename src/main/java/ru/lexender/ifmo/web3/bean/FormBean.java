@@ -4,12 +4,14 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
+import lombok.extern.log4j.Log4j2;
 import ru.lexender.ifmo.web3.core.ContourService;
+import ru.lexender.ifmo.web3.core.DataRow;
 import ru.lexender.ifmo.web3.database.DatabaseConnection;
 
-import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
 
 @Getter @Setter
 @FieldDefaults(level = AccessLevel.PRIVATE)
@@ -18,7 +20,10 @@ public class FormBean {
     Double y;
     Double r;
     Long time;
-    Boolean result;
+    String result;
+
+    @ManagedProperty(value = "#{tableBean}")
+    TableBean tableBean;
 
     @ManagedProperty(value = "#{contourService}")
     ContourService contourService;
@@ -26,12 +31,21 @@ public class FormBean {
     @ManagedProperty(value = "#{databaseConnection}")
     DatabaseConnection databaseConnection;
 
+
     public void submit() {
         long start = System.nanoTime();
 
-        result = contourService.check(x, y, r);
+        var realResult = contourService.check(x, y, r);
+        result = realResult ? "Пробитие" : "Не пробил";
         time = System.nanoTime() - start;
 
-        databaseConnection.saveShot(x, y, r, time, result);
+        HttpSession session = (HttpSession) FacesContext
+                .getCurrentInstance()
+                .getExternalContext()
+                .getSession(true);
+        databaseConnection.saveShot(x, y, r, time, realResult, session.getId());
+        tableBean.getData().add(new DataRow(x, y, r, realResult, time, session.getId()));
+
+        System.out.println("Submitted: x=" + x + ", y=" + y + ", r=" + r + ", result=" + result + ", time=" + time);
     }
 }

@@ -1,11 +1,16 @@
 package ru.lexender.ifmo.web3.database;
 
+import ru.lexender.ifmo.web3.core.DataRow;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Properties;
 
 public class DatabaseConnection {
@@ -31,25 +36,55 @@ public class DatabaseConnection {
         }
     }
 
-    public Connection connect() throws SQLException {
+    public static Connection connect() throws SQLException {
         return DriverManager.getConnection(URL, USER, PASSWORD);
     }
 
-    public void saveShot(double x, double y, double r, long time, boolean result) {
-        String insertQuery = "INSERT INTO shots(x, y, r, time, result) VALUES (?, ?, ?, ?, ?)";
+    public static List<DataRow> getShots(String sessionId) {
+        String selectQuery = "SELECT * FROM shots WHERE session = ?";
+
+        List<DataRow> data = new LinkedList<>();
+        try (Connection conn = connect();
+             PreparedStatement pstmt = conn.prepareStatement(selectQuery)) {
+
+            pstmt.setString(1, sessionId);
+            ResultSet rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                data.add(new DataRow(
+                        rs.getDouble("x"),
+                        rs.getDouble("y"),
+                        rs.getDouble("r"),
+                        rs.getBoolean("result"),
+                        rs.getLong("time"),
+                        rs.getString("session")
+                ));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+
+        return data;
+    }
+
+    public static void saveShot(double x, double y, double r, long time, boolean result, String sessionId) {
+        String insertQuery = "INSERT INTO shots(x, y, r, time, result, session) VALUES (?, ?, ?, ?, ?, ?)";
 
         try (Connection conn = connect();
              PreparedStatement pstmt = conn.prepareStatement(insertQuery)) {
 
-            pstmt.setDouble(1, x);          // Устанавливаем значение для X
-            pstmt.setDouble(2, y);       // Устанавливаем значение для Y
-            pstmt.setDouble(3, r);       // Устанавливаем значение для R
-            pstmt.setLong(4, time); // Устанавливаем значение для time
-            pstmt.setBoolean(5, result);  // Устанавливаем результат
+            pstmt.setDouble(1, x);
+            pstmt.setDouble(2, y);
+            pstmt.setDouble(3, r);
+            pstmt.setLong(4, time);
+            pstmt.setBoolean(5, result);
+            pstmt.setString(6, sessionId);
 
-            pstmt.executeUpdate();       // Выполняем запрос
+            pstmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
+
 }
